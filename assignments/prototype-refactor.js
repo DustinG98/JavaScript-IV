@@ -25,28 +25,32 @@ Prototype Refactor
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-function GameObject(attr){
-    this.createdAt = attr.createdAt;
-    this.name = attr.name;
-    this.dimensions = attr.dimensions;
-  }
-  
-  GameObject.prototype.destroy = function(){
-    return `${this.name} was removed from the game.`
-  }
+
+  class GameObject {
+      constructor(attr){
+          this.createdAt = attr.createdAt;
+          this.name = attr.name;
+          this.dimensions = attr.dimensions
+      }
+      destroy(){
+        return `${this.name} was removed from the game.`
+      }
+  }//this closes my Game Object
   /*
     === CharacterStats ===
     * healthPoints
     * takeDamage() // prototype method -> returns the string '<object name> took damage.'
     * should inherit destroy() from GameObject's prototype
   */
-  function CharacterStats(attr){
-    this.healthPoints = attr.healthPoints;
-    GameObject.call(this, attr);
-  }
-  CharacterStats.prototype = Object.create(GameObject.prototype);
-  CharacterStats.prototype.takeDamage = function(){
-    return `${this.name} took damage.`
+  
+  class CharacterStats extends GameObject{
+      constructor(attr){
+          super(attr);
+          this.healthPoints = attr.healthPoints;
+      }
+      takeDamage(){
+        return `${this.name} took damage.`
+      }
   }
   
   /*
@@ -58,17 +62,17 @@ function GameObject(attr){
     * should inherit destroy() from GameObject through CharacterStats
     * should inherit takeDamage() from CharacterStats
   */
-  
-  function Humanoid(attr){
-    this.team = attr.team;
-    this.weapons = attr.weapons;
-    this.language = attr.language;
-    CharacterStats.call(this, attr);
-  }
-  
-  Humanoid.prototype = Object.create(CharacterStats.prototype);
-  Humanoid.prototype.greet = function(){
-    return `${this.name} offers a greeting in ${this.language}`
+
+  class Humanoid extends CharacterStats{
+      constructor(attr){
+          super(attr);
+          this.team = attr.team;
+          this.weapons = attr.weapons;
+          this.language = attr.language;
+      }
+      greet(){
+        return `${this.name} offers a greeting in ${this.language}`
+      }
   }
    
   /*
@@ -148,69 +152,69 @@ function GameObject(attr){
     // * Create two new objects, one a villain and one a hero and fight it out with methods!
   
   
-    function Villian (attr){
-      Humanoid.call(this, attr);
-    }
+//     function Villian (attr){
+//       Humanoid.call(this, attr);
+//     }
   
   
-    function Hero (attr){
-      Humanoid.call(this, attr);
-    }
+//     function Hero (attr){
+//       Humanoid.call(this, attr);
+//     }
   
-    Hero.prototype = Object.create(GameObject.prototype);
-    Hero.prototype.constructor = Hero;
-    Hero.prototype.slash = function(villian){
-      villian.healthPoints--;
-      console.log(`${villian.name} GOT STABBED BY ${this.name}! New HP is ${villian.healthPoints}`);
-      if(villian.healthPoints === 0){
-        console.log(villian.destroy());
-      }
-    }
+//     Hero.prototype = Object.create(GameObject.prototype);
+//     Hero.prototype.constructor = Hero;
+//     Hero.prototype.slash = function(villian){
+//       villian.healthPoints--;
+//       console.log(`${villian.name} GOT STABBED BY ${this.name}! New HP is ${villian.healthPoints}`);
+//       if(villian.healthPoints === 0){
+//         console.log(villian.destroy());
+//       }
+//     }
   
-    Villian.prototype = Object.create(GameObject.prototype);
-    Villian.prototype.constructor = Villian;
-    Villian.prototype.shoot = function(hero){
-      hero.healthPoints = hero.healthPoints - 5;
-      console.log(`${hero.name} HAS BEEN SHOT BY ${this.name}! New HP is ${hero.healthPoints}`);
-      if(hero.healthPoints === 0){
-        console.log(hero.destroy());
-      }
-    }
+//     Villian.prototype = Object.create(GameObject.prototype);
+//     Villian.prototype.constructor = Villian;
+//     Villian.prototype.shoot = function(hero){
+//       hero.healthPoints = hero.healthPoints - 5;
+//       console.log(`${hero.name} HAS BEEN SHOT BY ${this.name}! New HP is ${hero.healthPoints}`);
+//       if(hero.healthPoints === 0){
+//         console.log(hero.destroy());
+//       }
+//     }
   
-    const superMan = new Hero({
-      createdAt: new Date(),
-      dimensions: {
-        length: 2,
-        width: 1,
-        height: 1,
-      },
-      healthPoints: 5,
-      name: 'Clark Kent',
-      team: 'Mage Guild',
-      weapons: [
-        'Knife',
-      ],
-      language: 'Common Tongue',
-    });
-    const lexLuthor = new Villian({
-      createdAt: new Date(),
-      dimensions: {
-        length: 2,
-        width: 1,
-        height: 1,
-      },
-      healthPoints: 5,
-      name: 'Lex Luthor',
-      team: 'Mage Guild',
-      weapons: [
-        'Gun',
-      ],
-      language: 'Common Tongue',
-    });
+//     const superMan = new Hero({
+//       createdAt: new Date(),
+//       dimensions: {
+//         length: 2,
+//         width: 1,
+//         height: 1,
+//       },
+//       healthPoints: 5,
+//       name: 'Clark Kent',
+//       team: 'Mage Guild',
+//       weapons: [
+//         'Knife',
+//       ],
+//       language: 'Common Tongue',
+//     });
+//     const lexLuthor = new Villian({
+//       createdAt: new Date(),
+//       dimensions: {
+//         length: 2,
+//         width: 1,
+//         height: 1,
+//       },
+//       healthPoints: 5,
+//       name: 'Lex Luthor',
+//       team: 'Mage Guild',
+//       weapons: [
+//         'Gun',
+//       ],
+//       language: 'Common Tongue',
+//     });
   
   
-  superMan.slash(lexLuthor);
-  superMan.slash(lexLuthor);
-  superMan.slash(lexLuthor);
-  superMan.slash(lexLuthor);
-  lexLuthor.shoot(superMan);
+//   superMan.slash(lexLuthor);
+//   superMan.slash(lexLuthor);
+//   superMan.slash(lexLuthor);
+//   superMan.slash(lexLuthor);
+//   lexLuthor.shoot(superMan);
