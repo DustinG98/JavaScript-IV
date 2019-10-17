@@ -24,6 +24,10 @@ class Instructor extends Person{
     grade(student, subjectStr){
         return `${student.name} receives a perfect score on ${subjectStr}`
     }
+    changeGrade(student, min, max){
+        student.grade += Math.floor(Math.random() * (max - min) + min);
+        return student.grade;
+    }
 }//this closes Instructor class constructor
 
 class Student extends Person{
@@ -32,6 +36,7 @@ class Student extends Person{
         this.previousBackground = attr.previousBackground;
         this.className = attr.className;
         this.favSubjects = attr.favSubjects;
+        this.grade = attr.grade;
     }
     listsSubjects(){
         let len = this.favSubjects.length;
@@ -45,6 +50,13 @@ class Student extends Person{
     sprintChallenge(subject){
         return `${this.name} has begun sprint challenge on ${subject}`
     }//this closes sprintChallenge
+    graduate(){
+        if(this.grade >= 70){
+            return `${this.name}, CONGRATULATIONS YOU ARE READY TO GRADUATE!!!!`
+        } else {
+            return `${this.name}, ask your instructor to change your grade.`
+        }
+    }
 }//this closes Student class Constructor
 
 
@@ -89,7 +101,8 @@ const dustin = new Student({
     age: 37,
     previousBackground: 'None ;)',
     className: 'Web25',
-    favSubjects: ['Javascript', 'HTML', 'CSS', 'REACT']
+    favSubjects: ['Javascript', 'HTML', 'CSS', 'REACT'],
+    grade: 68
   });
 
 const braden = new Student({
@@ -98,7 +111,8 @@ const braden = new Student({
     age: 78,
     previousBackground: 'HE\'S A GOD',
     className: 'Web25',
-    favSubjects: ['Javascript', 'HTML', 'CSS', 'REACT']
+    favSubjects: ['Javascript', 'HTML', 'CSS', 'REACT'],
+    grade: 80
   });
 
 const roenz = new ProjectManager({
@@ -127,11 +141,20 @@ const dylan = new ProjectManager({
     favInstructor: 'Brit'
   });
 
-
+  console.log('******INSTRUCTORS*********')
+  console.log(fred)
   console.log(fred.demo('Javascript'))
   console.log(brit.grade(dustin, 'Javascript'))
+  console.log('******STUDENTS*********')
+  console.log(dustin)
   braden.listsSubjects()
   console.log(dustin.PRAssignment('Javascript'))
   console.log(braden.sprintChallenge('Javascript'))
+  console.log('******PROJECT MANAGERS*********')
+  console.log(roenz)
   console.log(roenz.standUp('Web25'))
   console.log(dylan.debugsCode(dustin, 'Javascript'))
+  console.log('******STRETCH*********')
+  console.log(brit.changeGrade(dustin, -2, 2))
+  console.log(dustin.graduate())
+  console.log(braden.graduate())
