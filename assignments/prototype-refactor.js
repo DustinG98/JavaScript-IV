@@ -152,69 +152,67 @@ Prototype Refactor
     // * Create two new objects, one a villain and one a hero and fight it out with methods!
   
   
-//     function Villian (attr){
-//       Humanoid.call(this, attr);
-//     }
+    class Villian extends Humanoid{
+        constructor(attr){
+            super(attr);
+        }
+        shoot(){
+            this.healthPoints = this.healthPoints - 5;
+            console.log(`${this.name} HAS BEEN SHOT! New HP is ${this.healthPoints}`);
+            if(this.healthPoints === 0){
+                console.log(this.destroy());
+            }
+        }
+    }
+  
+    class Hero extends Humanoid{
+        constructor(attr){
+            super(attr);
+        }
+        slash(){
+            this.healthPoints--;
+            console.log(`${this.name} GOT STABBED! New HP is ${this.healthPoints}`);
+            if(this.healthPoints === 0){
+                console.log(this.destroy());
+            }
+        }
+    }
   
   
-//     function Hero (attr){
-//       Humanoid.call(this, attr);
-//     }
-  
-//     Hero.prototype = Object.create(GameObject.prototype);
-//     Hero.prototype.constructor = Hero;
-//     Hero.prototype.slash = function(villian){
-//       villian.healthPoints--;
-//       console.log(`${villian.name} GOT STABBED BY ${this.name}! New HP is ${villian.healthPoints}`);
-//       if(villian.healthPoints === 0){
-//         console.log(villian.destroy());
-//       }
-//     }
-  
-//     Villian.prototype = Object.create(GameObject.prototype);
-//     Villian.prototype.constructor = Villian;
-//     Villian.prototype.shoot = function(hero){
-//       hero.healthPoints = hero.healthPoints - 5;
-//       console.log(`${hero.name} HAS BEEN SHOT BY ${this.name}! New HP is ${hero.healthPoints}`);
-//       if(hero.healthPoints === 0){
-//         console.log(hero.destroy());
-//       }
-//     }
-  
-//     const superMan = new Hero({
-//       createdAt: new Date(),
-//       dimensions: {
-//         length: 2,
-//         width: 1,
-//         height: 1,
-//       },
-//       healthPoints: 5,
-//       name: 'Clark Kent',
-//       team: 'Mage Guild',
-//       weapons: [
-//         'Knife',
-//       ],
-//       language: 'Common Tongue',
-//     });
-//     const lexLuthor = new Villian({
-//       createdAt: new Date(),
-//       dimensions: {
-//         length: 2,
-//         width: 1,
-//         height: 1,
-//       },
-//       healthPoints: 5,
-//       name: 'Lex Luthor',
-//       team: 'Mage Guild',
-//       weapons: [
-//         'Gun',
-//       ],
-//       language: 'Common Tongue',
-//     });
+    const superMan = new Hero({
+      createdAt: new Date(),
+      dimensions: {
+        length: 2,
+        width: 1,
+        height: 1,
+      },
+      healthPoints: 5,
+      name: 'Clark Kent',
+      team: 'Mage Guild',
+      weapons: [
+        'Knife',
+      ],
+      language: 'Common Tongue',
+    });
+    const lexLuthor = new Villian({
+      createdAt: new Date(),
+      dimensions: {
+        length: 2,
+        width: 1,
+        height: 1,
+      },
+      healthPoints: 5,
+      name: 'Lex Luthor',
+      team: 'Mage Guild',
+      weapons: [
+        'Gun',
+      ],
+      language: 'Common Tongue',
+    });
   
   
-//   superMan.slash(lexLuthor);
-//   superMan.slash(lexLuthor);
-//   superMan.slash(lexLuthor);
-//   superMan.slash(lexLuthor);
-//   lexLuthor.shoot(superMan);
+  superMan.slash(lexLuthor);
+  superMan.slash(lexLuthor);
+  superMan.slash(lexLuthor);
+  superMan.slash(lexLuthor);
+  lexLuthor.shoot(superMan);
