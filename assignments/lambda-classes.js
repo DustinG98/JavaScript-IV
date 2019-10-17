@@ -9,3 +9,129 @@ class Person{
         return `Hello my name is ${this.name}, I am from ${this.location}`
     }
 }//this closes Person class constructor
+
+
+class Instructor extends Person{
+    constructor(attr){
+        super(attr);
+        this.specialty = attr.specialty;
+        this.favLanguage = attr.favLanguage;
+        this.catchPhrase = attr.catchPhrase;
+    }
+    demo(subjectStr){
+        return `Today we are learning about ${subjectStr}`
+    }
+    grade(student, subjectStr){
+        return `${student.name} receives a perfect score on ${subjectStr}`
+    }
+}//this closes Instructor class constructor
+
+class Student extends Person{
+    constructor(attr){
+        super(attr);
+        this.previousBackground = attr.previousBackground;
+        this.className = attr.className;
+        this.favSubjects = attr.favSubjects;
+    }
+    listsSubjects(){
+        let len = this.favSubjects.length;
+        for(let i = 0; i < len; i++){
+            console.log(this.favSubjects[i]);
+        }
+    }//this closes listsSubjects
+    PRAssignment(subject){
+        return `${this.name} has submitted a PR for ${subject}`
+    }//this closes PRAssignment
+    sprintChallenge(subject){
+        return `${this.name} has begun sprint challenge on ${subject}`
+    }//this closes sprintChallenge
+}//this closes Student class Constructor
+
+
+class ProjectManager extends Instructor{
+    constructor(attr){
+        super(attr);
+        this.gradClassName = attr.gradClassName;
+        this.favInstructor = attr.favInstructor;
+    }
+    standUp(channel){
+        return `${this.name} announces to ${channel}, @channel standy times!`
+    }
+    debugsCode(student, subject){
+        return `${this.name} debugs ${student.name}'s code on ${subject}`
+    }
+}
+
+//END OF CONSTRUCTORS
+
+
+const fred = new Instructor({
+    name: 'Fred',
+    location: 'Bedrock',
+    age: 37,
+    favLanguage: 'JavaScript',
+    specialty: 'Front-end',
+    catchPhrase: `Don't forget the homies`
+  });
+
+const brit = new Instructor({
+    name: 'Britt',
+    location: 'Canada',
+    age: 37,
+    favLanguage: 'JavaScript',
+    specialty: 'Front-end',
+    catchPhrase: `Don't forget the homies`
+  });
+
+const dustin = new Student({
+    name: 'Dustin',
+    location: 'USA',
+    age: 37,
+    previousBackground: 'None ;)',
+    className: 'Web25',
+    favSubjects: ['Javascript', 'HTML', 'CSS', 'REACT']
+  });
+
+const braden = new Student({
+    name: 'Braden',
+    location: 'USA',
+    age: 78,
+    previousBackground: 'HE\'S A GOD',
+    className: 'Web25',
+    favSubjects: ['Javascript', 'HTML', 'CSS', 'REACT']
+  });
+
+const roenz = new ProjectManager({
+    name: 'Roenz',
+    location: 'USA',
+    age: 99,
+    previousBackground: 'I dunno',
+    className: 'Web25',
+    favLanguage: 'JavaScript',
+    specialty: 'Front-end',
+    catchPhrase: `Don't forget the homies`,
+    gradClassName: 'Ummm PT something',
+    favInstructor: 'Brit'
+  });
+
+const dylan = new ProjectManager({
+    name: 'Dylan',
+    location: 'USA',
+    age: 99,
+    previousBackground: 'I dunno',
+    className: 'Web25',
+    favLanguage: 'JavaScript',
+    specialty: 'Front-end',
+    catchPhrase: `Don't forget the homies`,
+    gradClassName: 'Ummm who\'s Dylan',
+    favInstructor: 'Brit'
+  });
+
+
+  console.log(fred.demo('Javascript'))
+  console.log(brit.grade(dustin, 'Javascript'))
+  braden.listsSubjects()
+  console.log(dustin.PRAssignment('Javascript'))
+  console.log(braden.sprintChallenge('Javascript'))
+  console.log(roenz.standUp('Web25'))
+  console.log(dylan.debugsCode(dustin, 'Javascript'))
